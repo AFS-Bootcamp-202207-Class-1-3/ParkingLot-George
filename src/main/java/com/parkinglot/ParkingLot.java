@@ -1,33 +1,35 @@
 package com.parkinglot;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ParkingLot {
 
 
-    private int parkCount;
+    private int capacity = 10;
+    private Map<ParkingTicket, Car> ticketCarMap = new HashMap<>();
 
-
-    public int getParkCount() {
-        return parkCount;
-    }
 
     public ParkingLot(){}
 
-    private void setParkCount(int parkCount) {
-        this.parkCount = parkCount;
-    }
 
-    public ParkingLot(int parkCount) {
-        this.parkCount = parkCount;
+
+    public ParkingLot(int capacity) {
+        this.capacity = capacity;
     }
 
     public ParkingTicket park(Car car) {
-        return new ParkingTicket( true);
+        if (capacity <= 10) {
+            ParkingTicket parkingTicket = new ParkingTicket(false);
+            ticketCarMap.put(parkingTicket, car);
+            return parkingTicket;
+        }
+        return null;
     }
 
     public Car fetch(ParkingLot parkingLot, Car partedCar, ParkingTicket parkingTicket) {
-        if (!parkingTicket.isUsed() ) {
-            parkingLot.setParkCount(parkingLot.parkCount-1);
-            parkingTicket.setUsed(false);
+        if (!parkingTicket.isUsed() && parkingLot.ticketCarMap.get(parkingTicket) == partedCar) {
+            parkingTicket.setUsed(true);
             return partedCar;
         }
         return null;
