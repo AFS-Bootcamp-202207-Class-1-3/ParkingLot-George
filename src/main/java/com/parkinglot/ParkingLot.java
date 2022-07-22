@@ -6,7 +6,7 @@ import java.util.Map;
 public class ParkingLot {
 
 
-    private int capacity = 10;
+    private static int capacity = 10;
     private Map<ParkingTicket, Car> ticketCarMap = new HashMap<>();
 
 
@@ -15,7 +15,7 @@ public class ParkingLot {
 
 
     public ParkingLot(int capacity) {
-        this.capacity = capacity;
+        ParkingLot.capacity = capacity;
     }
 
     public ParkingTicket park(Car car) {
@@ -27,11 +27,11 @@ public class ParkingLot {
         return null;
     }
 
-    public Car fetch(ParkingLot parkingLot, Car partedCar, ParkingTicket parkingTicket) {
-        if (!parkingTicket.isUsed() && parkingLot.ticketCarMap.get(parkingTicket) == partedCar) {
+    public Car fetch(Car partedCar, ParkingTicket parkingTicket) {
+        if (!parkingTicket.isUsed() && ticketCarMap.get(parkingTicket) == partedCar) {
             parkingTicket.setUsed(true);
             return partedCar;
         }
-        return null;
+        throw new UnrecognizedParkingTicketException();
     }
 }
