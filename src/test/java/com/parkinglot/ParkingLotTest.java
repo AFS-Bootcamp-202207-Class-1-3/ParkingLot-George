@@ -61,14 +61,28 @@ public class ParkingLotTest {
     void should_return_nothing_when_fetch_car_given_parking_lot_and_wrong_parking_ticket() {
         //given
         ParkingLot parkingLot = new ParkingLot(3);
-        ParkingTicket parkingTicket1 = new ParkingTicket(false);
+        ParkingTicket parkingTicket = new ParkingTicket(false);
         Car partedCar = new Car();
 
         //when
-        Car fetchCar1 = parkingLot.fetch(parkingLot, partedCar, parkingTicket1);
+        Car fetchCar = parkingLot.fetch(parkingLot, partedCar, parkingTicket);
 
         //then
-        assertNull(fetchCar1);
+        assertNull(fetchCar);
+    }
+
+    @Test
+    void should_return_nothing_when_fetch_car_given_parking_lot_and_used_parking_ticket() {
+        //given
+        ParkingLot parkingLot = new ParkingLot(3);
+        ParkingTicket parkingTicket = new ParkingTicket(true);
+        Car partedCar = new Car();
+
+        //when
+        Car fetchCar = parkingLot.fetch(parkingLot, partedCar, parkingTicket);
+
+        //then
+        assertNull(fetchCar);
     }
 
 }

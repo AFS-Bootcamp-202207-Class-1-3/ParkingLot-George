@@ -12,7 +12,7 @@ public class ParkingLot {
 
     public ParkingLot(){}
 
-    public void setParkCount(int parkCount) {
+    private void setParkCount(int parkCount) {
         this.parkCount = parkCount;
     }
 
@@ -25,7 +25,7 @@ public class ParkingLot {
     }
 
     public Car fetch(ParkingLot parkingLot, Car partedCar, ParkingTicket parkingTicket) {
-        if (parkingTicket.isUsed()) {
+        if (!parkingTicket.isUsed() ) {
             parkingLot.setParkCount(parkingLot.parkCount-1);
             parkingTicket.setUsed(false);
             return partedCar;
