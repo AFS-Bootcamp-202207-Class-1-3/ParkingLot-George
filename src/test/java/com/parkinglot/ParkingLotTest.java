@@ -24,7 +24,7 @@ public class ParkingLotTest {
     void should_return_parked_car_when_fetch_car_given_parking_lot_and_parking_ticket() {
         //given
         ParkingLot parkingLot = new ParkingLot(3);
-        ParkingTicket parkingTicket = new ParkingTicket(false);
+        ParkingTicket parkingTicket = new ParkingTicket(true);
         Car partedCar = new Car();
 
         //when
@@ -40,8 +40,8 @@ public class ParkingLotTest {
     void should_return_right_car_when_fetch_car_given_parking_lot_and_two_parking_ticket() {
         //given
         ParkingLot parkingLot = new ParkingLot(3);
-        ParkingTicket parkingTicket1 = new ParkingTicket(false);
-        ParkingTicket parkingTicket2 = new ParkingTicket(false);
+        ParkingTicket parkingTicket1 = new ParkingTicket(true);
+        ParkingTicket parkingTicket2 = new ParkingTicket(true);
         Car partedCar1 = new Car();
         Car partedCar2 = new Car();
 
@@ -55,6 +55,20 @@ public class ParkingLotTest {
         assertEquals(1, parkingLot.getParkCount());
         assertFalse(parkingTicket1.isUsed());
         assertFalse(parkingTicket2.isUsed());
+    }
+
+    @Test
+    void should_return_nothing_when_fetch_car_given_parking_lot_and_wrong_parking_ticket() {
+        //given
+        ParkingLot parkingLot = new ParkingLot(3);
+        ParkingTicket parkingTicket1 = new ParkingTicket(false);
+        Car partedCar = new Car();
+
+        //when
+        Car fetchCar1 = parkingLot.fetch(parkingLot, partedCar, parkingTicket1);
+
+        //then
+        assertNull(fetchCar1);
     }
 
 }

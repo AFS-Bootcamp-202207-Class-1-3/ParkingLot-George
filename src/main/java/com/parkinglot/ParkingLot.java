@@ -25,8 +25,11 @@ public class ParkingLot {
     }
 
     public Car fetch(ParkingLot parkingLot, Car partedCar, ParkingTicket parkingTicket) {
-        parkingLot.setParkCount(parkingLot.parkCount-1);
-        parkingTicket.setUsed(false);
-        return partedCar;
+        if (parkingTicket.isUsed()) {
+            parkingLot.setParkCount(parkingLot.parkCount-1);
+            parkingTicket.setUsed(false);
+            return partedCar;
+        }
+        return null;
     }
 }
