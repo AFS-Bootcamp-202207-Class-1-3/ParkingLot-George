@@ -24,9 +24,9 @@ public class ParkingLotTest {
         //given
         ParkingLot parkingLot = new ParkingLot(3);
         Car car = new Car();
+        ParkingTicket parkingTicket = parkingLot.park(car);
 
         //when
-        ParkingTicket parkingTicket = parkingLot.park(car);
         Car fetchCar = parkingLot.fetch(parkingTicket);
 
         //then
@@ -40,10 +40,10 @@ public class ParkingLotTest {
 
         Car car1 = new Car();
         Car car2 = new Car();
-
-        //when
         ParkingTicket parkingTicket1 = parkingLot.park(car1);
         ParkingTicket parkingTicket2 = parkingLot.park(car2);
+
+        //when
         Car fetchCar1 = parkingLot.fetch(parkingTicket1);
         Car fetchCar2 = parkingLot.fetch(parkingTicket2);
 
