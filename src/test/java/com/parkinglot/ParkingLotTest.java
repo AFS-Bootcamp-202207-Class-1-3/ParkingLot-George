@@ -81,16 +81,15 @@ public class ParkingLotTest {
     }
 
     @Test
-    void should_return_nothing_when_fetch_car_given_without_any_parking_position_and_used_parking_ticket() {
+    void should_throw_no_available_position_exception_when_park_car_given_without_any_parking_position() {
         //given
-        ParkingLot parkingLot = new ParkingLot(3);
+        ParkingLot parkingLot = new ParkingLot(11);
         Car car = new Car();
 
-        //when
-        ParkingTicket ticket = parkingLot.park(car);
-
-        //then
-        assertNotNull(ticket);
+        //when & then
+        Exception exception = assertThrows(NoAvailablePositionException.class,
+                () -> parkingLot.park(car));
+        assertEquals("No available position", exception.getMessage());
     }
 
     @Test
@@ -106,6 +105,5 @@ public class ParkingLotTest {
                 () -> parkingLot.fetch(car, unrecognizedParkingTicket));
         assertEquals("Unrecognized parking ticket", exception.getMessage());
     }
-
 
 }

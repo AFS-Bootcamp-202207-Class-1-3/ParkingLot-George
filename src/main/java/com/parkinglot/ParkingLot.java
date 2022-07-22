@@ -12,8 +12,6 @@ public class ParkingLot {
 
     public ParkingLot(){}
 
-
-
     public ParkingLot(int capacity) {
         ParkingLot.capacity = capacity;
     }
@@ -24,7 +22,7 @@ public class ParkingLot {
             ticketCarMap.put(parkingTicket, car);
             return parkingTicket;
         }
-        return null;
+        throw new NoAvailablePositionException();
     }
 
     public Car fetch(Car partedCar, ParkingTicket parkingTicket) {
