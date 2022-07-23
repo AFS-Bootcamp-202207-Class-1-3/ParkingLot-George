@@ -1,15 +1,22 @@
 package com.parkinglot;
 
 import org.junit.jupiter.api.Test;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ParkingBoyTest {
+
+    private static final List<ParkingLot> DEFAULT_PARKING_LOTS
+            = Arrays.asList(new ParkingLot(),
+            new ParkingLot());
     @Test
     void should_return_parking_ticket_when_parking_boy_park_given_parking_lot_and_car() {
         //given
         ParkingLot parkingLot = new ParkingLot();
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(parkingLot));
         Car car = new Car();
 
         //when
@@ -23,11 +30,11 @@ public class ParkingBoyTest {
     void should_return_parked_car_when_parking_boy_fetch_car_given_parking_ticket() {
         //given
         ParkingLot parkingLot = new ParkingLot();
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(parkingLot));
         Car exceptedCar = new Car();
+        ParkingTicket parkingTicket = parkingBoy.park(exceptedCar);
 
         //when
-        ParkingTicket parkingTicket = parkingBoy.park(exceptedCar);
         Car car = parkingBoy.fetch(parkingTicket);
 
         //then
@@ -38,7 +45,7 @@ public class ParkingBoyTest {
     void should_return_right_car_when_parking_boy_fetch_car_given_parked_cars() {
         //given
         ParkingLot parkingLot = new ParkingLot();
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(parkingLot));
         Car exceptedCar1 = new Car();
         Car exceptedCar2 = new Car();
         ParkingTicket parkingTicket1 = parkingBoy.park(exceptedCar1);
@@ -57,7 +64,7 @@ public class ParkingBoyTest {
     void should_throw_unrecognized_parking_ticket_exception_when_parking_boy_fetch_car_given_unrecognized_parking_ticket() {
         //given
         ParkingLot parkingLot = new ParkingLot();
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(parkingLot));
         ParkingTicket unRecognizedParkingTicket = new ParkingTicket();
 
 
@@ -71,7 +78,7 @@ public class ParkingBoyTest {
     void should_throw_unrecognized_parking_ticket_exception_when_parking_boy_fetch_car_given_used_parking_ticket() {
         //given
         ParkingLot parkingLot = new ParkingLot();
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(parkingLot));
         ParkingTicket parkingTicket = parkingBoy.park(new Car());
         parkingBoy.fetch(parkingTicket);
 
@@ -86,7 +93,7 @@ public class ParkingBoyTest {
     void should_throw_no_available_position_exception_when_parking_boy_fetch_car_given_without_any_position() {
         //given
         ParkingLot parkingLot = new ParkingLot(1);
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(parkingLot));
         Car car = new Car();
         parkingBoy.park(car);
 
@@ -94,5 +101,17 @@ public class ParkingBoyTest {
         Exception exception = assertThrows(NoAvailablePositionException.class,
                 () -> parkingBoy.park(car));
         assertEquals("No available position", exception.getMessage());
+    }
+
+    @Test
+    void should_park_to_first_parking_lot_when_parking_boy_park_car_given_parking_boy_manage_2_parking_lots() {
+        //given
+        ParkingBoy parkingBoy = new ParkingBoy(DEFAULT_PARKING_LOTS);
+
+        //when
+        parkingBoy.park(new Car());
+
+        //then
+        assertEquals(1, parkingBoy.parkingLots.get(0).ticketCarMap.size());
     }
 }
