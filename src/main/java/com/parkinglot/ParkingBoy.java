@@ -15,19 +15,17 @@ public class ParkingBoy {
     }
 
     public ParkingTicket park(Car car) {
-        List<String> exceptionMessages = new ArrayList<>();
         for (ParkingLot parkingLot : parkingLots) {
-            ParkingTicket parkingTicket = generateParkingTicket(car, exceptionMessages, parkingLot);
+            ParkingTicket parkingTicket = generateParkingTicket(car, parkingLot);
             if (parkingTicket != null) return parkingTicket;
         }
         return null;
     }
 
-    private ParkingTicket generateParkingTicket(Car car, List<String> exceptionMessages, ParkingLot parkingLot) {
-        ParkingTicket parkingTicket;
+    private ParkingTicket generateParkingTicket(Car car, ParkingLot parkingLot) {
+        List<String> exceptionMessages = new ArrayList<>();
         try {
-            parkingTicket = parkingLot.park(car);
-            if (parkingTicket != null) return parkingTicket;
+            return parkingLot.park(car);
         } catch (NoAvailablePositionException e) {
             exceptionMessages.add(e.getMessage());
             if (exceptionMessages.size() == parkingLots.size()) {
