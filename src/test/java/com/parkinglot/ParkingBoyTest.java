@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ParkingBoyTest {
 
-    private static final List<ParkingLot> DEFAULT_PARKING_LOTS
+    private static final List<ParkingLot> DEFAULT_EMPTY_PARKING_LOTS
             = Arrays.asList(new ParkingLot(),
             new ParkingLot());
     @Test
@@ -106,12 +106,26 @@ public class ParkingBoyTest {
     @Test
     void should_park_to_first_parking_lot_when_parking_boy_park_car_given_parking_boy_manage_2_parking_lots() {
         //given
-        ParkingBoy parkingBoy = new ParkingBoy(DEFAULT_PARKING_LOTS);
+        ParkingBoy parkingBoy = new ParkingBoy(DEFAULT_EMPTY_PARKING_LOTS);
 
         //when
         parkingBoy.park(new Car());
 
         //then
         assertEquals(1, parkingBoy.parkingLots.get(0).ticketCarMap.size());
+    }
+
+    @Test
+    void should_park_to_second_parking_lot_when_parking_boy_park_car_given_full_first_parking_lot_and_second_available()
+    {
+        //given
+        ParkingBoy parkingBoy = new ParkingBoy(Arrays.asList(new ParkingLot(1), new ParkingLot()));
+        parkingBoy.park(new Car());
+
+        //when
+        parkingBoy.park(new Car());
+
+        //then
+        assertEquals(1, parkingBoy.parkingLots.get(1).ticketCarMap.size());
     }
 }

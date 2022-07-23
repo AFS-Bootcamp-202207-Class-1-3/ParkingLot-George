@@ -17,7 +17,7 @@ public class ParkingLot {
         ticketCarMap = new HashMap<>();
     }
 
-    public ParkingTicket park(Car car) {
+    public ParkingTicket park(Car car) throws NoAvailablePositionException {
         if (isHasPosition()) {
             ParkingTicket parkingTicket = new ParkingTicket();
             ticketCarMap.put(parkingTicket, car);
