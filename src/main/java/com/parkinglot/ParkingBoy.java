@@ -19,7 +19,7 @@ public class ParkingBoy {
             ParkingTicket parkingTicket = generateParkingTicket(car, parkingLot);
             if (parkingTicket != null) return parkingTicket;
         }
-        return null;
+        throw new NoAvailablePositionException();
     }
 
     private ParkingTicket generateParkingTicket(Car car, ParkingLot parkingLot) {
@@ -40,7 +40,7 @@ public class ParkingBoy {
             Car car = generateParkedCar(parkingTicket, parkingLot);
             if (car != null) return car;
         }
-        return null;
+        throw new UnrecognizedParkingTicketException();
     }
 
     private Car generateParkedCar(ParkingTicket parkingTicket, ParkingLot parkingLot) {

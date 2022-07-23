@@ -11,8 +11,7 @@ public class ParkingBoyTest {
     @Test
     void should_return_parking_ticket_when_parking_boy_park_given_parking_lot_and_car() {
         //given
-        ParkingLot parkingLot = new ParkingLot();
-        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(parkingLot));
+        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(new ParkingLot()));
         Car car = new Car();
 
         //when
@@ -25,8 +24,7 @@ public class ParkingBoyTest {
     @Test
     void should_return_parked_car_when_parking_boy_fetch_car_given_parking_ticket() {
         //given
-        ParkingLot parkingLot = new ParkingLot();
-        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(parkingLot));
+        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(new ParkingLot()));
         Car exceptedCar = new Car();
         ParkingTicket parkingTicket = parkingBoy.park(exceptedCar);
 
@@ -40,8 +38,7 @@ public class ParkingBoyTest {
     @Test
     void should_return_right_car_when_parking_boy_fetch_car_given_parked_cars() {
         //given
-        ParkingLot parkingLot = new ParkingLot();
-        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(parkingLot));
+        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(new ParkingLot()));
         Car exceptedCar1 = new Car();
         Car exceptedCar2 = new Car();
         ParkingTicket parkingTicket1 = parkingBoy.park(exceptedCar1);
@@ -59,8 +56,7 @@ public class ParkingBoyTest {
     @Test
     void should_throw_unrecognized_parking_ticket_exception_when_parking_boy_fetch_car_given_unrecognized_parking_ticket() {
         //given
-        ParkingLot parkingLot = new ParkingLot();
-        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(parkingLot));
+        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(new ParkingLot()));
         ParkingTicket unRecognizedParkingTicket = new ParkingTicket();
 
 
@@ -73,8 +69,7 @@ public class ParkingBoyTest {
     @Test
     void should_throw_unrecognized_parking_ticket_exception_when_parking_boy_fetch_car_given_used_parking_ticket() {
         //given
-        ParkingLot parkingLot = new ParkingLot();
-        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(parkingLot));
+        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(new ParkingLot()));
         ParkingTicket parkingTicket = parkingBoy.park(new Car());
         parkingBoy.fetch(parkingTicket);
 
@@ -88,8 +83,7 @@ public class ParkingBoyTest {
     @Test
     void should_throw_no_available_position_exception_when_parking_boy_fetch_car_given_without_any_position() {
         //given
-        ParkingLot parkingLot = new ParkingLot(1);
-        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(parkingLot));
+        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(new ParkingLot(1)));
         Car car = new Car();
         parkingBoy.park(car);
 
@@ -126,9 +120,8 @@ public class ParkingBoyTest {
     }
 
     @Test
-    void should_return_right_car_when_parking_boy_fetch_car_given_2_parking_lot_and_2_parked_cars() {
+    void should_return_right_car_when_parking_boy_fetch_car_given_2_parking_lots_and_2_parked_cars() {
         //given
-        ParkingLot parkingLot = new ParkingLot();
         ParkingBoy parkingBoy = new ParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
         Car exceptedCar1 = new Car();
         Car exceptedCar2 = new Car();
@@ -142,6 +135,20 @@ public class ParkingBoyTest {
         //then
         assertEquals(exceptedCar1, car1);
         assertEquals(exceptedCar2, car2);
+    }
+
+    @Test
+    void
+    should_throw_unrecognized_parking_ticket_exception_when_boy_fetch_car_given_2_parking_lots_unrecognized_ticket() {
+        //given
+        ParkingBoy parkingBoy = new ParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
+        ParkingTicket unRecognizedParkingTicket = new ParkingTicket();
+
+
+        //when & then
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class,
+                () -> parkingBoy.fetch(unRecognizedParkingTicket));
+        assertEquals("Unrecognized parking ticket", exception.getMessage());
     }
 
 }
