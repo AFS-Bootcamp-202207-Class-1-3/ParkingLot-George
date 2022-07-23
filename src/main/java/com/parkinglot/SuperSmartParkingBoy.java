@@ -1,5 +1,6 @@
 package com.parkinglot;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,14 +12,14 @@ public class SuperSmartParkingBoy {
     }
 
     public ParkingTicket park(Car car) {
-        int maxEmptyPosition = calculateEmptyPosition(parkingLots.get(0));
-        ParkingLot maxEmptyPositionParkingLot = parkingLots.get(0);
+        float maxEmptyPositionRate = calculatePositionRate(parkingLots.get(0));
+        ParkingLot maxEmptyPositionRateParkingLot = parkingLots.get(0);
         for (ParkingLot parkingLot : parkingLots) {
-            maxEmptyPositionParkingLot = maxEmptyPosition >= calculateEmptyPosition(parkingLot)
-                    ? maxEmptyPositionParkingLot
+            maxEmptyPositionRateParkingLot = maxEmptyPositionRate <= calculatePositionRate(parkingLot)
+                    ? maxEmptyPositionRateParkingLot
                     : parkingLot;
         }
-        return maxEmptyPositionParkingLot.park(car);
+        return maxEmptyPositionRateParkingLot.park(car);
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
@@ -42,8 +43,10 @@ public class SuperSmartParkingBoy {
         return null;
     }
 
-    private int calculateEmptyPosition(ParkingLot parkingLot) {
-        return parkingLot.capacity - parkingLot.ticketCarMap.size();
+    private float calculatePositionRate(ParkingLot parkingLot) {
+        DecimalFormat decimalFormat=new DecimalFormat("0.00");
+        return Float.parseFloat(decimalFormat
+                .format((float)parkingLot.ticketCarMap.size() / parkingLot.capacity));
     }
 
 }
