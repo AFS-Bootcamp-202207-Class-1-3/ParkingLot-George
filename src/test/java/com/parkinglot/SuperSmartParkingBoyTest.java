@@ -69,21 +69,20 @@ public class SuperSmartParkingBoyTest {
         assertEquals("Unrecognized parking ticket", exception.getMessage());
     }
 
-//    @Test
-//    void
-//    should_throw_unrecognized_parking_ticket_exception_when_smart_boy_fetch_car_given_2_parking_lots_used_parking_ticket() {
-//        //given
-//        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
-//        ParkingTicket parkingTicket = smartParkingBoy.park(new Car());
-//        smartParkingBoy.fetch(parkingTicket);
-//
-//
-//        //when & then
-//        Exception exception = assertThrows(UnrecognizedParkingTicketException.class,
-//                () -> smartParkingBoy.fetch(parkingTicket));
-//        assertEquals("Unrecognized parking ticket", exception.getMessage());
-//    }
-//
+    @Test
+    void
+    should_throw_unrecognized_parking_ticket_exception_when_super_smart_boy_fetch_car_given_2_parking_lots_used_parking_ticket() {
+        //given
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
+        ParkingTicket parkingTicket = smartParkingBoy.park(new Car());
+        smartParkingBoy.fetch(parkingTicket);
+
+        //when & then
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class,
+                () -> smartParkingBoy.fetch(parkingTicket));
+        assertEquals("Unrecognized parking ticket", exception.getMessage());
+    }
+
 //    @Test
 //    void
 //    should_throw_no_available_position_exception_when_smart_boy_fetch_car_given_2_parking_lots_without_any_position() {
