@@ -67,7 +67,7 @@ public class SmartParkingBoyTest {
 
     @Test
     void
-    should_throw_unrecognized_parking_ticket_exception_when_boy_fetch_car_given_2_parking_lots_used_parking_ticket() {
+    should_throw_unrecognized_parking_ticket_exception_when_smart_boy_fetch_car_given_2_parking_lots_used_parking_ticket() {
         //given
         SmartParkingBoy smartParkingBoy = new SmartParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
         ParkingTicket parkingTicket = smartParkingBoy.park(new Car());
@@ -80,18 +80,18 @@ public class SmartParkingBoyTest {
         assertEquals("Unrecognized parking ticket", exception.getMessage());
     }
 
-//    @Test
-//    void
-//    should_throw_no_available_position_exception_when_parking_boy_fetch_car_given_2_parking_lots_without_any_position() {
-//        //given
-//        ParkingBoy parkingBoy = new ParkingBoy(Arrays.asList(new ParkingLot(1), new ParkingLot(1)));
-//        Car car = new Car();
-//        parkingBoy.park(car);
-//        parkingBoy.park(car);
-//
-//        //when & then
-//        Exception exception = assertThrows(NoAvailablePositionException.class,
-//                () -> parkingBoy.park(car));
-//        assertEquals("No available position", exception.getMessage());
-//    }
+    @Test
+    void
+    should_throw_no_available_position_exception_when_smart_boy_fetch_car_given_2_parking_lots_without_any_position() {
+        //given
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(Arrays.asList(new ParkingLot(1), new ParkingLot(1)));
+        Car car = new Car();
+        smartParkingBoy.park(car);
+        smartParkingBoy.park(car);
+
+        //when & then
+        Exception exception = assertThrows(NoAvailablePositionException.class,
+                () -> smartParkingBoy.park(car));
+        assertEquals("No available position", exception.getMessage());
+    }
 }

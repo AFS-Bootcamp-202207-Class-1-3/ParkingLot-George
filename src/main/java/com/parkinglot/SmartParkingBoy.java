@@ -18,21 +18,8 @@ public class SmartParkingBoy {
                     ? maxEmptyPositionParkingLot
                     : parkingLot;
         }
-
         return maxEmptyPositionParkingLot.park(car);
     }
-
-//    private ParkingTicket generateParkingTicket(Car car, ParkingLot parkingLot) {
-//        List<String> exceptionMessages = new ArrayList<>();
-//        try {
-//        } catch (NoAvailablePositionException e) {
-//            exceptionMessages.add(e.getMessage());
-//            if (exceptionMessages.size() == parkingLots.size()) {
-//                throw new NoAvailablePositionException();
-//            }
-//        }
-//        return null;
-//    }
 
     public Car fetch(ParkingTicket parkingTicket) {
         for (ParkingLot parkingLot : parkingLots) {
