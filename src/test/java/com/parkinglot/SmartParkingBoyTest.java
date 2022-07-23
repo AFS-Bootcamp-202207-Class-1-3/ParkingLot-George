@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class SmartParkingBoyTest {
     @Test
@@ -19,19 +20,18 @@ public class SmartParkingBoyTest {
         assertEquals(1, smartParkingBoy.parkingLots.get(0).ticketCarMap.size());
     }
 
-//    @Test
-//    void should_park_to_second_parking_lot_when_parking_boy_park_car_given_full_first_parking_lot_and_second_available()
-//    {
-//        //given
-//        ParkingBoy parkingBoy = new ParkingBoy(Arrays.asList(new ParkingLot(1), new ParkingLot()));
-//        parkingBoy.park(new Car());
-//
-//        //when
-//        parkingBoy.park(new Car());
-//
-//        //then
-//        assertEquals(1, parkingBoy.parkingLots.get(1).ticketCarMap.size());
-//    }
+    @Test
+    void should_park_to_more_empty_parking_lot_when_smart_boy_park_car_given_full_first_parking_lot_and_second_available()
+    {
+        //given
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(Arrays.asList(new ParkingLot(5), new ParkingLot()));
+
+        //when
+        smartParkingBoy.park(new Car());
+
+        //then
+        assertEquals(1, smartParkingBoy.parkingLots.get(1).ticketCarMap.size());
+    }
 //
 //    @Test
 //    void should_return_right_car_when_parking_boy_fetch_car_given_2_parking_lots_and_2_parked_cars() {

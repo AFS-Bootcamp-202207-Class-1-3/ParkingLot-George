@@ -1,7 +1,7 @@
 package com.parkinglot;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class SmartParkingBoy {
     List<ParkingLot> parkingLots;
@@ -11,25 +11,28 @@ public class SmartParkingBoy {
     }
 
     public ParkingTicket park(Car car) {
+        int maxEmptyPosition = calculateEmptyPosition(parkingLots.get(0));
+        ParkingLot maxEmptyPositionParkingLot = parkingLots.get(0);
         for (ParkingLot parkingLot : parkingLots) {
-            ParkingTicket parkingTicket = generateParkingTicket(car, parkingLot);
-            if (parkingTicket != null) return parkingTicket;
+            maxEmptyPositionParkingLot = maxEmptyPosition >= calculateEmptyPosition(parkingLot)
+                    ? maxEmptyPositionParkingLot
+                    : parkingLot;
         }
-        throw new NoAvailablePositionException();
+
+        return maxEmptyPositionParkingLot.park(car);
     }
 
-    private ParkingTicket generateParkingTicket(Car car, ParkingLot parkingLot) {
-        List<String> exceptionMessages = new ArrayList<>();
-        try {
-            return parkingLot.park(car);
-        } catch (NoAvailablePositionException e) {
-            exceptionMessages.add(e.getMessage());
-            if (exceptionMessages.size() == parkingLots.size()) {
-                throw new NoAvailablePositionException();
-            }
-        }
-        return null;
-    }
+//    private ParkingTicket generateParkingTicket(Car car, ParkingLot parkingLot) {
+//        List<String> exceptionMessages = new ArrayList<>();
+//        try {
+//        } catch (NoAvailablePositionException e) {
+//            exceptionMessages.add(e.getMessage());
+//            if (exceptionMessages.size() == parkingLots.size()) {
+//                throw new NoAvailablePositionException();
+//            }
+//        }
+//        return null;
+//    }
 
     public Car fetch(ParkingTicket parkingTicket) {
         for (ParkingLot parkingLot : parkingLots) {
@@ -50,5 +53,9 @@ public class SmartParkingBoy {
             }
         }
         return null;
+    }
+
+    private int calculateEmptyPosition(ParkingLot parkingLot) {
+        return parkingLot.capacity - parkingLot.ticketCarMap.size();
     }
 }
