@@ -1,7 +1,5 @@
 package com.parkinglot;
 
-import com.sun.org.apache.bcel.internal.generic.ATHROW;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,22 +15,26 @@ public class ParkingBoy {
     }
 
     public ParkingTicket park(Car car) {
-        ParkingTicket parkingTicket = null;
         List<String> exceptionMessages = new ArrayList<>();
         for (ParkingLot parkingLot : parkingLots) {
-            try {
-                parkingTicket = parkingLot.park(car);
-                if (parkingTicket != null) {
-                    return parkingTicket;
-                }
-            } catch (NoAvailablePositionException e) {
-                exceptionMessages.add(e.getMessage());
-                if (exceptionMessages.size() == parkingLots.size()) {
-                    throw new NoAvailablePositionException();
-                }
+            ParkingTicket parkingTicket = generateParkingTicket(car, exceptionMessages, parkingLot);
+            if (parkingTicket != null) return parkingTicket;
+        }
+        return null;
+    }
+
+    private ParkingTicket generateParkingTicket(Car car, List<String> exceptionMessages, ParkingLot parkingLot) {
+        ParkingTicket parkingTicket;
+        try {
+            parkingTicket = parkingLot.park(car);
+            if (parkingTicket != null) return parkingTicket;
+        } catch (NoAvailablePositionException e) {
+            exceptionMessages.add(e.getMessage());
+            if (exceptionMessages.size() == parkingLots.size()) {
+                throw new NoAvailablePositionException();
             }
         }
-        return parkingTicket;
+        return null;
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
