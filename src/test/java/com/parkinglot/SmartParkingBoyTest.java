@@ -53,7 +53,7 @@ public class SmartParkingBoyTest {
 
     @Test
     void
-    should_throw_unrecognized_parking_ticket_exception_when_boy_fetch_car_given_2_parking_lots_unrecognized_ticket() {
+    should_throw_unrecognized_parking_ticket_exception_when_smart_boy_fetch_car_given_2_parking_lots_unrecognized_ticket() {
         //given
         SmartParkingBoy smartParkingBoy = new SmartParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
         ParkingTicket unRecognizedParkingTicket = new ParkingTicket();
@@ -65,21 +65,21 @@ public class SmartParkingBoyTest {
         assertEquals("Unrecognized parking ticket", exception.getMessage());
     }
 
-//    @Test
-//    void
-//    should_throw_unrecognized_parking_ticket_exception_when_boy_fetch_car_given_2_parking_lots_used_parking_ticket() {
-//        //given
-//        ParkingBoy parkingBoy = new ParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
-//        ParkingTicket parkingTicket = parkingBoy.park(new Car());
-//        parkingBoy.fetch(parkingTicket);
-//
-//
-//        //when & then
-//        Exception exception = assertThrows(UnrecognizedParkingTicketException.class,
-//                () -> parkingBoy.fetch(parkingTicket));
-//        assertEquals("Unrecognized parking ticket", exception.getMessage());
-//    }
-//
+    @Test
+    void
+    should_throw_unrecognized_parking_ticket_exception_when_boy_fetch_car_given_2_parking_lots_used_parking_ticket() {
+        //given
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
+        ParkingTicket parkingTicket = smartParkingBoy.park(new Car());
+        smartParkingBoy.fetch(parkingTicket);
+
+
+        //when & then
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class,
+                () -> smartParkingBoy.fetch(parkingTicket));
+        assertEquals("Unrecognized parking ticket", exception.getMessage());
+    }
+
 //    @Test
 //    void
 //    should_throw_no_available_position_exception_when_parking_boy_fetch_car_given_2_parking_lots_without_any_position() {
