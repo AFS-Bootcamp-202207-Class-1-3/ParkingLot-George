@@ -3,11 +3,10 @@ package com.parkinglot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParkingBoy {
-
+public class SmartParkingBoy {
     List<ParkingLot> parkingLots;
 
-    public ParkingBoy(List<ParkingLot> parkingLots) {
+    public SmartParkingBoy(List<ParkingLot> parkingLots) {
         this.parkingLots = parkingLots;
     }
 
