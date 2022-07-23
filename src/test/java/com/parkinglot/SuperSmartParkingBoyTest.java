@@ -37,24 +37,24 @@ public class SuperSmartParkingBoyTest {
         assertEquals(1, superSmartParkingBoy.parkingLots.get(1).ticketCarMap.size());
     }
 
-//    @Test
-//    void should_return_right_car_when_smart_parking_boy_fetch_car_given_2_parking_lots_and_2_parked_cars() {
-//        //given
-//        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
-//        Car exceptedCar1 = new Car();
-//        Car exceptedCar2 = new Car();
-//        ParkingTicket parkingTicket1 = smartParkingBoy.parkingLots.get(0).park(exceptedCar1);
-//        ParkingTicket parkingTicket2 = smartParkingBoy.parkingLots.get(1).park(exceptedCar2);
-//
-//        //when
-//        Car car1 = smartParkingBoy.fetch(parkingTicket1);
-//        Car car2 = smartParkingBoy.fetch(parkingTicket2);
-//
-//        //then
-//        assertEquals(exceptedCar1, car1);
-//        assertEquals(exceptedCar2, car2);
-//    }
-//
+    @Test
+    void should_return_right_car_when_super_smart_parking_boy_fetch_car_given_2_parking_lots_and_2_parked_cars() {
+        //given
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
+        Car exceptedCar1 = new Car();
+        Car exceptedCar2 = new Car();
+        ParkingTicket parkingTicket1 = smartParkingBoy.parkingLots.get(0).park(exceptedCar1);
+        ParkingTicket parkingTicket2 = smartParkingBoy.parkingLots.get(1).park(exceptedCar2);
+
+        //when
+        Car car1 = smartParkingBoy.fetch(parkingTicket1);
+        Car car2 = smartParkingBoy.fetch(parkingTicket2);
+
+        //then
+        assertEquals(exceptedCar1, car1);
+        assertEquals(exceptedCar2, car2);
+    }
+
 //    @Test
 //    void
 //    should_throw_unrecognized_parking_ticket_exception_when_smart_boy_fetch_car_given_2_parking_lots_unrecognized_ticket() {
