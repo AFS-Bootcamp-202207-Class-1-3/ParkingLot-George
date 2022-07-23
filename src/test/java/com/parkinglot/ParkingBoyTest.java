@@ -8,10 +8,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ParkingBoyTest {
-
-    private static final List<ParkingLot> DEFAULT_EMPTY_PARKING_LOTS
-            = Arrays.asList(new ParkingLot(),
-            new ParkingLot());
     @Test
     void should_return_parking_ticket_when_parking_boy_park_given_parking_lot_and_car() {
         //given
@@ -106,7 +102,7 @@ public class ParkingBoyTest {
     @Test
     void should_park_to_first_parking_lot_when_parking_boy_park_car_given_parking_boy_manage_2_parking_lots() {
         //given
-        ParkingBoy parkingBoy = new ParkingBoy(DEFAULT_EMPTY_PARKING_LOTS);
+        ParkingBoy parkingBoy = new ParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
 
         //when
         parkingBoy.park(new Car());
@@ -128,4 +124,24 @@ public class ParkingBoyTest {
         //then
         assertEquals(1, parkingBoy.parkingLots.get(1).ticketCarMap.size());
     }
+
+    @Test
+    void should_return_right_car_when_parking_boy_fetch_car_given_2_parking_lot_and_2_parked_cars() {
+        //given
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
+        Car exceptedCar1 = new Car();
+        Car exceptedCar2 = new Car();
+        ParkingTicket parkingTicket1 = parkingBoy.parkingLots.get(0).park(exceptedCar1);
+        ParkingTicket parkingTicket2 = parkingBoy.parkingLots.get(1).park(exceptedCar2);
+
+        //when
+        Car car1 = parkingBoy.fetch(parkingTicket1);
+        Car car2 = parkingBoy.fetch(parkingTicket2);
+
+        //then
+        assertEquals(exceptedCar1, car1);
+        assertEquals(exceptedCar2, car2);
+    }
+
 }

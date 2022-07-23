@@ -36,6 +36,23 @@ public class ParkingBoy {
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
-        return parkingLots.get(0).fetch(parkingTicket);
+        for (ParkingLot parkingLot : parkingLots) {
+            Car car = generateParkedCar(parkingTicket, parkingLot);
+            if (car != null) return car;
+        }
+        return null;
+    }
+
+    private Car generateParkedCar(ParkingTicket parkingTicket, ParkingLot parkingLot) {
+        List<String> exceptionMessages = new ArrayList<>();
+        try {
+            return parkingLot.fetch(parkingTicket);
+        }catch (UnrecognizedParkingTicketException e) {
+            exceptionMessages.add(e.getMessage());
+            if (exceptionMessages.size() == parkingLots.size()) {
+                throw new UnrecognizedParkingTicketException();
+            }
+        }
+        return null;
     }
 }
