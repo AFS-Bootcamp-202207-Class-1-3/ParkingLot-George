@@ -1,10 +1,15 @@
-package com.parkinglot;
+package com.parkinglot.parkingboy;
+
+import com.parkinglot.ParkingLot;
+import com.parkinglot.entity.ParkingTicket;
+import com.parkinglot.exception.UnrecognizedParkingTicketException;
+import com.parkinglot.entity.Car;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SuperSmartParkingBoy {
+public class SuperSmartParkingBoy implements ParkingBoy {
     List<ParkingLot> parkingLots;
 
     public SuperSmartParkingBoy(List<ParkingLot> parkingLots) {
@@ -34,7 +39,7 @@ public class SuperSmartParkingBoy {
         List<String> exceptionMessages = new ArrayList<>();
         try {
             return parkingLot.fetch(parkingTicket);
-        }catch (UnrecognizedParkingTicketException e) {
+        } catch (UnrecognizedParkingTicketException e) {
             exceptionMessages.add(e.getMessage());
             if (exceptionMessages.size() == parkingLots.size()) {
                 throw new UnrecognizedParkingTicketException();
@@ -44,9 +49,8 @@ public class SuperSmartParkingBoy {
     }
 
     private float calculatePositionRate(ParkingLot parkingLot) {
-        DecimalFormat decimalFormat=new DecimalFormat("0.00");
-        return Float.parseFloat(decimalFormat
-                .format((float)parkingLot.ticketCarMap.size() / parkingLot.capacity));
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        return Float.parseFloat(decimalFormat.format((float) parkingLot.ticketCarMap.size() / parkingLot.capacity));
     }
 
 }

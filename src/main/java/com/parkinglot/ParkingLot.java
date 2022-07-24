@@ -1,11 +1,16 @@
 package com.parkinglot;
 
+import com.parkinglot.exception.NoAvailablePositionException;
+import com.parkinglot.exception.UnrecognizedParkingTicketException;
+import com.parkinglot.entity.Car;
+import com.parkinglot.entity.ParkingTicket;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class ParkingLot {
     private static final int DEFAULT_CAPACITY = 10;
-    Map<ParkingTicket, Car> ticketCarMap;
+    public Map<ParkingTicket, Car> ticketCarMap;
     public final int capacity;
 
     public ParkingLot() {
@@ -30,7 +35,7 @@ public class ParkingLot {
         return ticketCarMap.size() < capacity;
     }
 
-    public Car fetch(ParkingTicket parkingTicket) throws UnrecognizedParkingTicketException{
+    public Car fetch(ParkingTicket parkingTicket) throws UnrecognizedParkingTicketException {
         if (isRecognizedParkingTicket(parkingTicket)) {
             Car car = ticketCarMap.get(parkingTicket);
             ticketCarMap.remove(parkingTicket);

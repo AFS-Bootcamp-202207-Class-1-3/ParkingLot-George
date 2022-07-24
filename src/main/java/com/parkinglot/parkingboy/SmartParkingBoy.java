@@ -1,9 +1,13 @@
-package com.parkinglot;
+package com.parkinglot.parkingboy;
+
+import com.parkinglot.exception.UnrecognizedParkingTicketException;
+import com.parkinglot.ParkingLot;
+import com.parkinglot.entity.Car;
+import com.parkinglot.entity.ParkingTicket;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
-public class SmartParkingBoy {
+public class SmartParkingBoy implements ParkingBoy {
     List<ParkingLot> parkingLots;
 
     public SmartParkingBoy(List<ParkingLot> parkingLots) {
@@ -33,7 +37,7 @@ public class SmartParkingBoy {
         List<String> exceptionMessages = new ArrayList<>();
         try {
             return parkingLot.fetch(parkingTicket);
-        }catch (UnrecognizedParkingTicketException e) {
+        } catch (UnrecognizedParkingTicketException e) {
             exceptionMessages.add(e.getMessage());
             if (exceptionMessages.size() == parkingLots.size()) {
                 throw new UnrecognizedParkingTicketException();

@@ -1,5 +1,10 @@
-package com.parkinglot;
+package com.parkinglot.parkingboy;
 
+import com.parkinglot.ParkingLot;
+import com.parkinglot.exception.NoAvailablePositionException;
+import com.parkinglot.exception.UnrecognizedParkingTicketException;
+import com.parkinglot.entity.Car;
+import com.parkinglot.entity.ParkingTicket;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -23,8 +28,7 @@ public class SuperSmartParkingBoyTest {
 
     @Test
     void
-    should_park_to_larger_rate_parking_lot_when_super_smart_boy_park_car_given_2_parking_lot_and_second_one_is_larger_rate()
-    {
+    should_park_to_larger_rate_parking_lot_when_super_smart_boy_park_car_given_2_parking_lot_and_second_one_is_larger_rate() {
         //given
         SuperSmartParkingBoy superSmartParkingBoy
                 = new SuperSmartParkingBoy(Arrays.asList(new ParkingLot(3), new ParkingLot(2)));
@@ -40,7 +44,8 @@ public class SuperSmartParkingBoyTest {
     @Test
     void should_return_right_car_when_super_smart_parking_boy_fetch_car_given_2_parking_lots_and_2_parked_cars() {
         //given
-        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
+        SuperSmartParkingBoy superSmartParkingBoy
+                = new SuperSmartParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
         Car exceptedCar1 = new Car();
         Car exceptedCar2 = new Car();
         ParkingTicket parkingTicket1 = superSmartParkingBoy.parkingLots.get(0).park(exceptedCar1);
@@ -56,10 +61,10 @@ public class SuperSmartParkingBoyTest {
     }
 
     @Test
-    void
-    should_throw_unrecognized_parking_ticket_exception_when_super_smart_boy_fetch_car_given_2_parking_lots_unrecognized_ticket() {
+    void should_throw_unrecognized_parking_ticket_exception_when_super_smart_boy_fetch_car_given_2_parking_lots_unrecognized_ticket() {
         //given
-        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
+        SuperSmartParkingBoy superSmartParkingBoy
+                = new SuperSmartParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
         ParkingTicket unRecognizedParkingTicket = new ParkingTicket();
 
 
@@ -73,7 +78,8 @@ public class SuperSmartParkingBoyTest {
     void
     should_throw_unrecognized_parking_ticket_exception_when_super_smart_boy_fetch_car_given_2_parking_lots_used_parking_ticket() {
         //given
-        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
+        SuperSmartParkingBoy superSmartParkingBoy
+                = new SuperSmartParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
         ParkingTicket parkingTicket = superSmartParkingBoy.park(new Car());
         superSmartParkingBoy.fetch(parkingTicket);
 
@@ -85,16 +91,16 @@ public class SuperSmartParkingBoyTest {
 
     @Test
     void
-    should_throw_no_available_position_exception_when_smart_boy_fetch_car_given_2_parking_lots_without_any_position() {
+    should_throw_no_available_position_exception_when_super_smart_boy_fetch_car_given_2_parking_lots_without_any_position() {
         //given
-        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(Arrays.asList(new ParkingLot(1), new ParkingLot(1)));
+        SuperSmartParkingBoy superSmartParkingBoy
+                = new SuperSmartParkingBoy(Arrays.asList(new ParkingLot(1), new ParkingLot(1)));
         Car car = new Car();
         superSmartParkingBoy.park(car);
         superSmartParkingBoy.park(car);
 
         //when & then
-        Exception exception = assertThrows(NoAvailablePositionException.class,
-                () -> superSmartParkingBoy.park(car));
+        Exception exception = assertThrows(NoAvailablePositionException.class, () -> superSmartParkingBoy.park(car));
         assertEquals("No available position", exception.getMessage());
     }
 }

@@ -1,13 +1,19 @@
-package com.parkinglot;
+package com.parkinglot.parkingboy;
+
+import com.parkinglot.ParkingLot;
+import com.parkinglot.entity.Car;
+import com.parkinglot.entity.ParkingTicket;
+import com.parkinglot.exception.NoAvailablePositionException;
+import com.parkinglot.exception.UnrecognizedParkingTicketException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParkingBoy {
+public class GeneralParkingBoy implements ParkingBoy {
 
     List<ParkingLot> parkingLots;
 
-    public ParkingBoy(List<ParkingLot> parkingLots) {
+    public GeneralParkingBoy(List<ParkingLot> parkingLots) {
         this.parkingLots = parkingLots;
     }
 
@@ -44,7 +50,7 @@ public class ParkingBoy {
         List<String> exceptionMessages = new ArrayList<>();
         try {
             return parkingLot.fetch(parkingTicket);
-        }catch (UnrecognizedParkingTicketException e) {
+        } catch (UnrecognizedParkingTicketException e) {
             exceptionMessages.add(e.getMessage());
             if (exceptionMessages.size() == parkingLots.size()) {
                 throw new UnrecognizedParkingTicketException();

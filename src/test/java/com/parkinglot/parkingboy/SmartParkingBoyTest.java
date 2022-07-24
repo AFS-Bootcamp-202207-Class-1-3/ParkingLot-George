@@ -1,5 +1,10 @@
-package com.parkinglot;
+package com.parkinglot.parkingboy;
 
+import com.parkinglot.ParkingLot;
+import com.parkinglot.entity.Car;
+import com.parkinglot.entity.ParkingTicket;
+import com.parkinglot.exception.NoAvailablePositionException;
+import com.parkinglot.exception.UnrecognizedParkingTicketException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -21,10 +26,11 @@ public class SmartParkingBoyTest {
     }
 
     @Test
-    void should_park_to_more_empty_parking_lot_when_smart_boy_park_car_given_full_first_parking_lot_and_second_available()
-    {
+    void
+    should_park_to_more_empty_parking_lot_when_smart_boy_park_car_given_full_first_parking_lot_and_second_available() {
         //given
-        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(Arrays.asList(new ParkingLot(5), new ParkingLot()));
+        SmartParkingBoy smartParkingBoy
+                = new SmartParkingBoy(Arrays.asList(new ParkingLot(5), new ParkingLot()));
 
         //when
         smartParkingBoy.park(new Car());
@@ -66,8 +72,7 @@ public class SmartParkingBoyTest {
     }
 
     @Test
-    void
-    should_throw_unrecognized_parking_ticket_exception_when_smart_boy_fetch_car_given_2_parking_lots_used_parking_ticket() {
+    void should_throw_unrecognized_parking_ticket_exception_when_smart_boy_fetch_car_given_2_parking_lots_used_parking_ticket() {
         //given
         SmartParkingBoy smartParkingBoy = new SmartParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
         ParkingTicket parkingTicket = smartParkingBoy.park(new Car());
@@ -81,17 +86,16 @@ public class SmartParkingBoyTest {
     }
 
     @Test
-    void
-    should_throw_no_available_position_exception_when_smart_boy_fetch_car_given_2_parking_lots_without_any_position() {
+    void should_throw_no_available_position_exception_when_smart_boy_fetch_car_given_2_parking_lots_without_any_position() {
         //given
-        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(Arrays.asList(new ParkingLot(1), new ParkingLot(1)));
+        SmartParkingBoy smartParkingBoy
+                = new SmartParkingBoy(Arrays.asList(new ParkingLot(1), new ParkingLot(1)));
         Car car = new Car();
         smartParkingBoy.park(car);
         smartParkingBoy.park(car);
 
         //when & then
-        Exception exception = assertThrows(NoAvailablePositionException.class,
-                () -> smartParkingBoy.park(car));
+        Exception exception = assertThrows(NoAvailablePositionException.class, () -> smartParkingBoy.park(car));
         assertEquals("No available position", exception.getMessage());
     }
 }
