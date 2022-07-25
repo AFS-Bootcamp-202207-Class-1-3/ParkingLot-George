@@ -1,10 +1,11 @@
-package com.parkinglot.parkingboy;
+package com.parkinglot.parkingStrategy;
 
 import com.parkinglot.ParkingLot;
 import com.parkinglot.entity.Car;
 import com.parkinglot.entity.ParkingTicket;
 import com.parkinglot.exception.NoAvailablePositionException;
 import com.parkinglot.exception.UnrecognizedParkingTicketException;
+import com.parkinglot.parkingStrategy.GeneralParkingBoy;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

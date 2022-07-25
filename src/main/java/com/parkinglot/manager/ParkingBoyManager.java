@@ -1,10 +1,11 @@
 package com.parkinglot.manager;
 
 import com.parkinglot.ParkingLot;
-import com.parkinglot.parkingboy.GeneralParkingBoy;
-import com.parkinglot.parkingboy.ParkingBoy;
-import com.parkinglot.parkingboy.SmartParkingBoy;
-import com.parkinglot.parkingboy.SuperSmartParkingBoy;
+import com.parkinglot.parkingStrategy.GeneralParkingBoy;
+
+import com.parkinglot.parkingStrategy.ParkingBoy;
+import com.parkinglot.parkingStrategy.SmartParkingBoy;
+import com.parkinglot.parkingStrategy.SuperSmartParkingBoy;
 import com.parkinglot.enums.ParkingBoyTypes;
 
 import java.util.HashMap;
